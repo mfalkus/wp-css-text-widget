@@ -44,9 +44,10 @@ class CSS_Class_Text_Widget extends WP_Widget {
         $title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
         $text = apply_filters( 'widget_text', empty( $instance['text'] ) ? '' : $instance['text'], $instance );
         $css_class = empty( $instance['css-class'] ) ? '' : ' '.$instance['css-class'];
-        echo $before_widget;
-        if ( !empty( $title ) ) { echo $before_title . $title . $after_title; } ?>
-            <div class="textwidget<?php echo $css_class ?>"><?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
+        echo $before_widget; ?>
+            <div class="textwidget<?php echo $css_class ?>">
+                <?php if ( !empty( $title ) ) { echo $before_title . $title . $after_title; } ?>
+                <?php echo !empty( $instance['filter'] ) ? wpautop( $text ) : $text; ?></div>
         <?php
         echo $after_widget;
     }
@@ -73,6 +74,7 @@ class CSS_Class_Text_Widget extends WP_Widget {
         <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
 
         <textarea class="widefat" rows="16" cols="20" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo $text; ?></textarea>
+        <label for="<?php echo $this->get_field_id('css-class'); ?>">CSS Class: </label><small>Applied to textwidget div, after the title.</small>
         <input class="widefat" id="<?php echo $this->get_field_id('css-class'); ?>" name="<?php echo $this->get_field_name('css-class'); ?>" type="text" value="<?php echo esc_attr($css_class); ?>" /></p>
 
         <p><input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox" <?php checked(isset($instance['filter']) ? $instance['filter'] : 0); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e('Automatically add paragraphs'); ?></label></p>
